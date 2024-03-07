@@ -1,0 +1,18 @@
+.hero-link-btn {
+  background-color: rgba(25, 17, 11, 0.2);
+  backdrop-filter: blur(15px);
+  outline: 1px solid white;
+  min-width: 200px;
+  border-radius: 100px;
+  margin: 20px 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+
+  transition: all 0.3s;
+}
+
+.hero-link-btn:hover {
+  outline: 2px solid white;
+  scale: 1.1;
+}
