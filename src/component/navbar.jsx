@@ -1,9 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.css";
+import throttle from "lodash.throttle";
 
 import NavLinks from "./navLinks";
 import HamburgerMenu from "./hamburgerMenu";
+import { BURGER_VIEW } from "./hamburgerMenu";
 
 function Navbar() {
   const LEFT_NAV = [
@@ -21,41 +23,58 @@ function Navbar() {
     { label: "Notification" },
     { label: "MyPersch" },
   ];
-  // HELPER FUNCTIONS
 
-  // CSS TRANSFORMATIONS
-  const transparentBG = `top-0 left-0 w-full z-[90] p-3
-                        text-[color:white] theme-dark-gray
-                        bg-[transparent] fixed theme-dark-gray
-                        transition-all ease-in-out duration-500`;
+  const navAlignmentFull = // FOR FULL WIDTH VIEW
+    (
+      <div class="grid grid-cols-7 px-0">
+        <NavLinks data={LEFT_NAV} pos="start" />
+        <div class="grid grid-cols-subgrid gap-4 col-span-3"></div>
+        <div class="grid grid-cols-subgrid gap-4 col-span-2"></div>
+        <NavLinks data={RIGHT_NAV} pos="end" />
+      </div>
+    );
 
-  const whiteBG = `top-0 left-0 w-full z-[90] p-3
-                  text-[color:black] theme-dark-gray 
-                  bg-[color:white] fixed theme-dark-gray 
-                  transition-all ease-in-out duration-500 delay-50`;
+  const navAlignmentHalf = // FOR HALF WIDTH VIEW
+    (
+      <>
+        <div class="grid grid-cols-4 px-0">
+          <NavLinks data={LEFT_NAV} pos="start" />
+          <div class="grid grid-cols-subgrid gap-4 col-span-1"></div>
+          <div class="grid grid-cols-subgrid gap-4 col-span-1"></div>
+          <NavLinks data={RIGHT_NAV} pos="end" />
+        </div>
+      </>
+    );
 
-  const navAlignmentFull = (
-    <div class="grid grid-cols-3 px-10">
-      <NavLinks data={LEFT_NAV} pos="start" />
-      <h1 id="logo">Persch</h1>
-      <NavLinks data={RIGHT_NAV} pos="end" />
-    </div>
-  );
+  const navAlignmentPhone = // FOR QUARTER WIDTH VIEW
+    (
+      <>
+        <HamburgerMenu />
+      </>
+    );
 
-  const navAlignmentPhone = (
-    <div class="grid grid-cols-3 px-10">
-      <NavLinks data={LEFT_NAV} />
-      <h1 id="logo">Persch</h1>
-      <NavLinks data={RIGHT_NAV} />
-    </div>
-  );
-
-  //
   const [structure, setStructure] = useState(navAlignmentFull);
   const [color, setColor] = useState(false);
 
+  // HELPER FUNCTIONS
+
+  // CSS TRANSFORMATIONS
+  const transparentBG = `top-0 left-0 w-full z-[90] p-4 py-7
+                        text-[color:white] theme-dark-gray
+                        bg-[transparent] fixed theme-dark-gray
+                        transition-all ease-in-out duration-400
+                        `;
+
+  const whiteBG = `top-0 left-0 w-full z-[90] p-4 py-7
+                  text-[color:black] theme-dark-gray 
+                  bg-[color:white] fixed theme-dark-gray 
+                  transition-all ease-in-out duration-400 delay-50
+                  `;
+
+  //
+
   const changeColor = () => {
-    if (window.scrollY > 0) {
+    if (window.scrollY > 0 || (window.scrollY == 0 && BURGER_VIEW)) {
       setColor(true);
     } else {
       setColor(false);
@@ -67,39 +86,57 @@ function Navbar() {
     }
   };
   const staticHoverEffectOff = () => {
-    if (window.scrollY == 0) {
+    if (window.scrollY == 0 && !BURGER_VIEW) {
       setColor(false);
     }
   };
 
-  window.addEventListener("resize", () => {
-    console.log(window.innerWidth <= 800);
-  });
+  window.addEventListener(
+    "scroll",
+    throttle(() => {
+      changeColor();
+    }),
+    100
+  );
 
-  window.addEventListener("scroll", () => {
-    changeColor();
-  });
+  const phoneViewCheck = () => {
+    return window.innerWidth <= 900;
+  };
 
-  // window.addEventListener("resize", () => {
-  //   if (window.innerWidth <= 500) setStructure(navAlignmentPhone);
-  //   if (window.innerWidth <= 950) setStructure(navAlignmentHalf);
-  //   if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
-  // });
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 750) setStructure(navAlignmentPhone);
+      else if (window.innerWidth <= 1600) setStructure(navAlignmentHalf);
+      else if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
+    });
+  }, []);
+
+  window.addEventListener("load", () => {
+    if (window.innerWidth <= 900) setStructure(navAlignmentPhone);
+    else if (window.innerWidth <= 1600) setStructure(navAlignmentHalf);
+    else if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
+  });
 
   return (
-    <header
-      className={color ? whiteBG : transparentBG}
-      onMouseEnter={() => {
-        console.log(1);
-        staticHoverEffectOn();
-      }}
-      onMouseLeave={() => {
-        staticHoverEffectOff();
-      }}
-    >
-      {structure}
-      <HamburgerMenu />
-    </header>
+    <>
+      <header
+        className={color ? whiteBG : transparentBG}
+        onMouseEnter={() => {
+          staticHoverEffectOn();
+        }}
+        onMouseLeave={() => {
+          staticHoverEffectOff();
+        }}
+      >
+        <h1
+          id="logo"
+          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        >
+          Persch
+        </h1>
+        {structure}
+      </header>
+    </>
   );
 }
 

@@ -2,14 +2,15 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      gridTemplateColumns: {
-        // Simple 16 column grid
-        16: "repeat(16, minmax(0, 1fr))",
+    screens: {
+      sm: { min: "640px", max: "767px" },
+      // => @media (min-width: 640px and max-width: 767px) { ... }
 
-        // Complex site-specific column configuration
-        footer: "200px minmax(900px, 1fr) 100px",
-      },
+      md: { min: "768px", max: "1023px" },
+      // => @media (min-width: 768px and max-width: 1023px) { ... }
+
+      lg: { min: "1024px" },
+      // => @media (min-width: 1024px and max-width: 1279px) { ... }
     },
   },
   plugins: [],
