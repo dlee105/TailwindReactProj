@@ -5,10 +5,12 @@ import "./App.css";
 
 import Navbar from "./component/navbar";
 import LandingVideo from "./component/landingVideo";
+import BackdropBlur from "./component/backdropBlur";
 
 function App() {
   return (
     <>
+      <BackdropBlur />
       <Navbar />
       <LandingVideo />
       <p>

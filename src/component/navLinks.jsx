@@ -10,7 +10,9 @@ function NavLinks(props) {
     <div class={defaultCSS}>
       {props.data.map((component, index) => (
         <div class="flex items-center justify-center">
-          <a href="/">{component.label}</a>
+          <a class="special-link" href="/">
+            {component.label}
+          </a>
         </div>
       ))}
     </div>

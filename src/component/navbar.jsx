@@ -5,6 +5,7 @@ import throttle from "lodash.throttle";
 
 import NavLinks from "./navLinks";
 import HamburgerMenu from "./hamburgerMenu";
+import BackdropBlur from "./backdropBlur";
 import { BURGER_VIEW } from "./hamburgerMenu";
 
 function Navbar() {
@@ -53,7 +54,7 @@ function Navbar() {
       </>
     );
 
-  const [structure, setStructure] = useState(navAlignmentFull);
+  const [structure, setStructure] = useState();
   const [color, setColor] = useState(false);
 
   // HELPER FUNCTIONS
@@ -91,6 +92,32 @@ function Navbar() {
     }
   };
 
+  useEffect(() => {
+    window.addEventListener("load", () => {
+      if (window.innerWidth <= 900) setStructure(navAlignmentPhone);
+      else if (window.innerWidth <= 1600) setStructure(navAlignmentHalf);
+      else if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
+    });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      // console.log(window.innerWidth);
+      if (window.innerWidth <= 900) setStructure(navAlignmentPhone);
+      else if (window.innerWidth <= 1600) setStructure(navAlignmentHalf);
+      else if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
+    });
+  }, []);
+
+  useEffect(() => {
+    const backdrop = document.getElementById("backdrop-effect");
+    backdrop.addEventListener("click", () => {
+      if (window.scrollY == 0 && BURGER_VIEW) {
+        setTimeout(() => setColor(false), 300);
+      }
+    });
+  }, [structure]);
+
   window.addEventListener(
     "scroll",
     throttle(() => {
@@ -102,20 +129,6 @@ function Navbar() {
   const phoneViewCheck = () => {
     return window.innerWidth <= 900;
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth <= 750) setStructure(navAlignmentPhone);
-      else if (window.innerWidth <= 1600) setStructure(navAlignmentHalf);
-      else if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
-    });
-  }, []);
-
-  window.addEventListener("load", () => {
-    if (window.innerWidth <= 900) setStructure(navAlignmentPhone);
-    else if (window.innerWidth <= 1600) setStructure(navAlignmentHalf);
-    else if (window.innerWidth <= 1920) setStructure(navAlignmentFull);
-  });
 
   return (
     <>
