@@ -1,5 +1,5 @@
 import React from "react";
-import "./navLinks.css";
+import "./styles/navLinks.css";
 
 function NavLinks(props) {
   let defaultCSS = `grid grid-cols-${props.data.length}`;

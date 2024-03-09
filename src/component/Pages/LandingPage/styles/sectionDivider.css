@@ -1,0 +1,33 @@
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.divider::before {
+  content: "";
+  flex: 1;
+  border: none;
+  background-color: #cacbcc;
+  height: 1px;
+  width: 50%;
+  align-content: center;
+  justify-content: center;
+}
+
+.divider::after {
+  content: "";
+  flex: 1;
+  border: none;
+  background-color: #cacbcc;
+  height: 1px;
+  width: 50%;
+  align-content: center;
+  justify-content: center;
+}
+
+.divider-text {
+  width: auto;
+  padding: 0 1rem;
+}

@@ -1,8 +1,5 @@
 import React from "react";
-import { useState } from "react";
-
 import ImageButton from "./imageButton";
-import "./imageButton.css";
 
 function HeroContent() {
   const example = {

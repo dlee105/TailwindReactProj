@@ -1,11 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import "./navbar.css";
+import "./styles/navbar.css";
 import throttle from "lodash.throttle";
 
 import NavLinks from "./navLinks";
 import HamburgerMenu from "./hamburgerMenu";
-import BackdropBlur from "./backdropBlur";
 import { BURGER_VIEW } from "./hamburgerMenu";
 
 function Navbar() {
@@ -63,13 +62,13 @@ function Navbar() {
   const transparentBG = `top-0 left-0 w-full z-[90] p-4 py-7
                         text-[color:white] theme-dark-gray
                         bg-[transparent] fixed theme-dark-gray
-                        transition-all ease-in-out duration-400
+                        transition-all ease-in-out duration-400 
                         `;
 
   const whiteBG = `top-0 left-0 w-full z-[90] p-4 py-7
                   text-[color:black] theme-dark-gray 
                   bg-[color:white] fixed theme-dark-gray 
-                  transition-all ease-in-out duration-400 delay-50
+                  transition-all ease-in-out duration-400 delay-150
                   `;
 
   //
@@ -113,7 +112,7 @@ function Navbar() {
     const backdrop = document.getElementById("backdrop-effect");
     backdrop.addEventListener("click", () => {
       if (window.scrollY == 0 && BURGER_VIEW) {
-        setTimeout(() => setColor(false), 300);
+        setTimeout(() => setColor(false), 2000);
       }
     });
   }, [structure]);
@@ -123,7 +122,7 @@ function Navbar() {
     throttle(() => {
       changeColor();
     }),
-    100
+    1000
   );
 
   const phoneViewCheck = () => {

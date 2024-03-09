@@ -1,15 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import "./landingVideo.css";
-import heroVideo from "../assets/video/heroVideo.mp4";
+import "./styles/landingVideo.css";
+import heroVideo from "../../../assets/video/heroVideo.mp4";
 import HeroContent from "./heroContent";
 import VideoPauseBtn from "./videoPauseBtn";
-import BackdropBlur from "./backdropBlur";
-import { BURGER_VIEW } from "./hamburgerMenu";
 
-function LandingVideo() {
+function LandingVideo(props) {
   const VIDEO = {
-    src: heroVideo,
+    src: heroVideo || props.video,
     type: "video/mp4",
   };
 

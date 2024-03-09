@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./videoPauseBtn.css";
+import "./styles/videoPauseBtn.css";
 
 function VideoPauseBtn() {
   const [vidPause, setVidPause] = useState(false);

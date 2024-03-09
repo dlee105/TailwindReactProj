@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./imageButton.css";
+
+import "./styles/imageButton.css";
 
 function ImageButton(props) {
   //   console.log(props.link);

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "./backdropBlur.css";
-import { BURGER_VIEW } from "./hamburgerMenu";
+import "./styles/backdropBlur.css";
 
 function BackdropBlur() {
   const [state, setState] = useState(false);
