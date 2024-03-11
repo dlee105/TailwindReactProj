@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     screens: {
       sm: { min: "500px", max: "767px" },
@@ -11,6 +12,11 @@ export default {
 
       lg: { min: "1024px" },
       // => @media (min-width: 1024px and max-width: 1279px) { ... }
+    },
+    extend: {
+      width: {
+        "1/8": "12.5%",
+      },
     },
   },
   plugins: [],

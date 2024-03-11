@@ -25,7 +25,7 @@ function ExploreSection(props) {
 
   return (
     <>
-      <div class="mx-16 mb-16 grid sm:grid-rows-3 md:grid-cols-3 lg:grid-cols-3 gap-x-5 sm:gap-y-10">
+      <div class="mx-16 mb-16 grid md:grid-cols-3 lg:grid-cols-3 gap-x-5 sm:gap-y-10">
         {images.map((img, index) => (
           <SmImageBlock src={img} />
         ))}

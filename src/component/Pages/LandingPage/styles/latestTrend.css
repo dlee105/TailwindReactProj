@@ -1,0 +1,9 @@
+.shadow {
+  border: 2px solid;
+  padding: 10px;
+  box-shadow: 6px 4px 8px;
+}
+
+.zoom:hover {
+  scale: 1.1;
+}
